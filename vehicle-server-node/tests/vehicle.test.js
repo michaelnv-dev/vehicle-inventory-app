@@ -14,7 +14,7 @@ let vehicle = {
 
 
 describe('POST /vehicles/', () => {
-    it('Should save an vehicle object', (done) => {
+    it('Save new vehicle', (done) => {
         let url = `http://${hostName}:${port}`;
         request(url).post('/vehicles/')
         .send(vehicle)
@@ -31,7 +31,7 @@ describe('POST /vehicles/', () => {
 });
 
 describe('GET /vehicles', () => {
-    it('Should retrieve an all vehicle objects', (done) => {
+    it('Should retrieve an all vehicles documents', (done) => {
         let url = `http://${hostName}:${port}`;
         request(url).get('/vehicles')
         .send()
@@ -48,7 +48,7 @@ describe('GET /vehicles', () => {
 
 
 describe('GET /vehicles/:id', () => {
-    it('Should save an object with a name resource', (done) => {
+    it('Get vehicle  by id', (done) => {
         let url = `http://${hostName}:${port}`;
         request(url).get('/vehicles/' + vehicle._id)
         .send()
@@ -67,7 +67,7 @@ describe('GET /vehicles/:id', () => {
 
 
 describe('PUT /vehicles/:id', () => {
-    it('Should save an object with a name resource', (done) => {
+    it('Update vehicles', (done) => {
         let url = `http://${hostName}:${port}`;
         request(url).put('/vehicles/' + vehicle._id)
         .send(vehicle)
@@ -83,7 +83,7 @@ describe('PUT /vehicles/:id', () => {
 
 
 describe('DELETE /vehicles/:id', () => {
-    it('Should retrieve an object with a name resource', (done) => {
+    it('expect for delete text response', (done) => {
         let url = `http://${hostName}:${port}`;
         request(url).delete('/vehicles/' + vehicle._id)
         .send()
