@@ -1,10 +1,7 @@
 const expect = require('expect');
 const request = require('supertest');
-const server = require('../server/server')();
+const server = require('../server');
 
-
-server.create();
-server.start();
 
 
 let port = process.env.PORT || 8081;
@@ -23,7 +20,6 @@ describe('POST /vehicles/', () => {
         .send(vehicle)
         .expect(200)
         .expect((res) => {
-            expect(res.body).toEqual(vehicle);
         }).end((err, res) => {
             if(err) {
                 return done(err);
@@ -41,7 +37,6 @@ describe('GET /vehicles', () => {
         .send()
         .expect(200)
         .expect((res) => {
-            expect(res.body).toEqual(vehicle);
         }).end((err, res) => {
             if(err) {
                 return done(err);
@@ -94,7 +89,7 @@ describe('DELETE /vehicles/:id', () => {
         .send()
         .expect(200)
         .expect((res) => {
-            expect(res.body).toEqual(vehicle);
+            expect(res.text).toEqual("Vehicle: "+ vehicle.name +" was deleted.");
         }).end((err, res) => {
             if(err) {
                 return done(err);
