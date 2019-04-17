@@ -24,8 +24,8 @@
             </select>
           </div>
           <div class="form-group form-input-el">
-            <label>Connection date</label>
-            <datepicker placeholder="Select Date" v-model="vehicleData.conn" class=""></datepicker>
+            <label style="margin-right:10px;">Connection date</label>
+            <datepicker placeholder="Select Date"  v-model="vehicleData.conn" class=""></datepicker>
           </div>
           <div class="ml-auto text-right">
             <button type="submit" class="btn btn-primary my-2">Add</button>
