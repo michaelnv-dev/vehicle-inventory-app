@@ -22,7 +22,6 @@
 </template>
 
 <script>
-import db from '@/db';
 import axios from 'axios';
 
 export default {
@@ -38,7 +37,7 @@ export default {
     }
   },
   beforeCreate (){
-axios.get('http://18.223.149.16:3000/vehicles/' + this.$route.params.id)
+axios.get(process.env.API_URL + this.$route.params.id)
         .then(response => {
 					this.vehicleId = this.$route.params.id;
 	        this.vehicleName = response.data.name;
@@ -52,7 +51,6 @@ axios.get('http://18.223.149.16:3000/vehicles/' + this.$route.params.id)
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3{
   text-align: center;

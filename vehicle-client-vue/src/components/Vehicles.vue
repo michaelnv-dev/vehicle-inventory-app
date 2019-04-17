@@ -62,7 +62,6 @@
                   </td>
                   <td>
                     <datepicker placeholder="Select Date" v-model="editVehicleData.conn"></datepicker>
-                    <!-- <input v-model="editVehicleData.conn" type="text"> -->
                   </td>
                   <td>
                     <span class="icon">
@@ -107,7 +106,6 @@
 </template>
 
 <script>
-import db from "@/db";
 import axios from 'axios';
 import Datepicker from 'vuejs-datepicker';
 import moment from 'moment'
@@ -150,28 +148,23 @@ export default {
     },
 
     getVehicles() {
-        axios.get('http://18.223.149.16:3000/vehicles')
+        axios.get(process.env.API_URL)
         .then(response => {
           this.vehicles = response.data;
         });
     },
     onSubmit() {
       this.vehicleData.conn = (new Date(this.vehicleData.conn).getTime() / 1000);
-      axios.post('http://18.223.149.16:3000/vehicles/', this.vehicleData).then(response => {
+      axios.post(process.env.API_URL, this.vehicleData).then(response => {
           this.vehicleData.conn = "";
           this.vehicleData.name = "";
           this.vehicleData.type = "SUV";
           this.getVehicles();
         });
-
-      // db.collection("vehicles")
-      //   .add(this.vehicleData)
-      //   .then(this.getVehicles);
-      
     },
 
     onDelete(id) {
-      axios.delete('http://18.223.149.16:3000/vehicles/' + id).then(response => {
+      axios.delete(process.env.API_URL + id).then(response => {
           this.getVehicles();
         });
     },
@@ -191,7 +184,7 @@ export default {
     },
     onEditSubmit(id) {
       this.editVehicleData.conn = (new Date(this.editVehicleData.conn).getTime() / 1000);
-      axios.put('http://18.223.149.16:3000/vehicles/' + id,  {name:this.editVehicleData.name, type:this.editVehicleData.type, last_successful_connection:this.editVehicleData.conn}).then(response => {
+      axios.put(process.env.API_URL + id,  {name:this.editVehicleData.name, type:this.editVehicleData.type, last_successful_connection:this.editVehicleData.conn}).then(response => {
           this.editId = "";
           this.editVehicleData.name = "";
           this.editVehicleData.type = "";
@@ -199,17 +192,11 @@ export default {
           this.editVehicleData.conn = "";
           this.getVehicles();
         });
-      
-      // db.collection("vehicles")
-      //   .doc(id)
-      //   .set(this.editVehicleData)
-      //   .then(this.getVehicles);
     }
   }
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 h3 {
   text-align: center;
